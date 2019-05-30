@@ -1,0 +1,6 @@
+main: io.atrius.Main
+name: Craftdown
+version: "1.0"
+description: Server chat manager with intuitive markdown support!
+author: Atrius
+website: atriusx.github.io
