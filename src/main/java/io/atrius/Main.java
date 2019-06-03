@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 @SuppressWarnings("unused")
 public class Main extends JavaPlugin {
 
-    private Logger logger = Logger.getLogger("Craftdown");
+    private Logger logger = Logger.getLogger("CraftMark");
 
     @Override
     public void onEnable() {
