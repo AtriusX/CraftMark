@@ -11,15 +11,15 @@ import org.commonmark.parser.Parser;
 
 public class ChatListener implements Listener {
 
-    private Parser            parser   = Parser.builder().build();
+    private Parser            parser   = Parser.builder().extensions(Main.getExtensions()).build();
     private CraftChatRenderer renderer = new CraftChatRenderer();
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         // Parse the input into a valid Minecraft chat message
-        Node   document = parser.parse(event.getMessage());
-        String message  = renderer.render(document);
+        String message = ChatColor.translateAlternateColorCodes('&', event.getMessage());
+        Node   document = parser.parse(message);
         // Replace message
-        event.setMessage(ChatColor.translateAlternateColorCodes('&', message));
+        event.setMessage(renderer.render(document));
     }
 }
