@@ -18,6 +18,6 @@ public class SpoilerExtension implements Parser.ParserExtension, HtmlRenderer.Ht
 
     @Override
     public void extend(HtmlRenderer.Builder rendererBuilder) {
-        rendererBuilder.nodeRendererFactory(context -> new SpoilerNodeRenderer());
+        rendererBuilder.nodeRendererFactory(SpoilerNodeRenderer::new);
     }
 }
