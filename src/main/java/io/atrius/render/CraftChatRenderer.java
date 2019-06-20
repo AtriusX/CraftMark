@@ -26,12 +26,12 @@ public class CraftChatRenderer implements Renderer {
         // Replace all closing tags with a reset and current color tag
         while (mat.find()) {
             currentColor = mat.group();
-            render = render.replaceAll("</(strong|em|ins|del)>", "&r" + currentColor);
+            render = render.replaceAll("</(strong|em|ins|del|sp)>", "&r" + currentColor);
         }
 
         return render
                 .replace("<strong>", "&l").replace("<em>", "&o")
                 .replace("<ins>", "&n").replace("<del>", "&m")
-                .replaceAll("</?p>", "");
+                .replace("<sp>", "&k").replaceAll("</?p>", "");
     }
 }

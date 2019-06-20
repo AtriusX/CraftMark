@@ -1,5 +1,6 @@
 package io.atrius;
 
+import io.atrius.render.extensions.spoiler.SpoilerExtension;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.commonmark.Extension;
@@ -17,7 +18,8 @@ public class Main extends JavaPlugin {
 
     private static List<Extension> extensions = Arrays.asList(
             StrikethroughExtension.create(),
-            InsExtension.create()
+            InsExtension.create(),
+            SpoilerExtension.create()
     );
 
     @Override
