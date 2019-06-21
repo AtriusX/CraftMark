@@ -1,6 +1,6 @@
 package io.atrius;
 
-import io.atrius.render.CraftChatRenderer;
+import io.atrius.render.CraftRenderer;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -11,8 +11,8 @@ import org.commonmark.parser.Parser;
 
 public class ChatListener implements Listener {
 
-    private Parser            parser   = Parser.builder().extensions(Main.getExtensions()).build();
-    private CraftChatRenderer renderer = new CraftChatRenderer();
+    private Parser        parser   = Parser.builder().extensions(Main.getExtensions()).build();
+    private CraftRenderer renderer = CraftRenderer.create();
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
