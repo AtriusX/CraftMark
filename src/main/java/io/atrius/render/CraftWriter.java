@@ -14,9 +14,11 @@ public class CraftWriter {
     }
 
     public void format(ChatColor color) {
-        if (lastChar != 0) {
-            append(color.toString());
-        }
+        append(color.toString());
+    }
+
+    public void write(String s) {
+        append(s);
     }
 
     private void append(String s) {

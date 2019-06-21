@@ -17,7 +17,7 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         // Parse the input into a valid Minecraft chat message
-        String message = ChatColor.translateAlternateColorCodes('&', event.getMessage());
+        String message  = ChatColor.translateAlternateColorCodes('&', event.getMessage());
         Node   document = parser.parse(message);
         // Replace message
         event.setMessage(renderer.render(document));
