@@ -1,4 +1,4 @@
-# CraftMark
+# CraftMark [![Build Status](https://travis-ci.com/AtriusX/CraftMark.svg?branch=master)](https://travis-ci.com/AtriusX/CraftMark)
 CraftMark is a spigot plugin that adds markdown support to minecraft's chat system. This greatly 
 extends and improves the game's formatting system in a way that's much more intuitive than before.
 
