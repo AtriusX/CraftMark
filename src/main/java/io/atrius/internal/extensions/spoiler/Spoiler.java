@@ -1,4 +1,4 @@
-package io.atrius.render.extensions.spoiler;
+package io.atrius.internal.extensions.spoiler;
 
 import org.commonmark.node.CustomNode;
 import org.commonmark.node.Delimited;

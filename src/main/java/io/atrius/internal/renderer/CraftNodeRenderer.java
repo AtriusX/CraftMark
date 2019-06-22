@@ -1,4 +1,4 @@
-package io.atrius.render;
+package io.atrius.internal.renderer;
 
 import org.bukkit.ChatColor;
 import org.commonmark.node.*;
@@ -16,6 +16,10 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     public CraftNodeRenderer(CraftNodeRendererContext context) {
         this.context = context;
         this.writer = context.getWriter();
+    }
+
+    public CraftWriter getWriter() {
+        return writer;
     }
 
     @Override

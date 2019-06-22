@@ -1,20 +1,20 @@
-package io.atrius.render.extensions.spoiler;
+package io.atrius.internal.extensions.spoiler;
 
+import io.atrius.internal.renderer.CraftNodeRendererContext;
+import io.atrius.internal.renderer.CraftWriter;
+import org.bukkit.ChatColor;
 import org.commonmark.node.Node;
 import org.commonmark.renderer.NodeRenderer;
-import org.commonmark.renderer.html.HtmlNodeRendererContext;
-import org.commonmark.renderer.html.HtmlWriter;
 
 import java.util.Collections;
-import java.util.Map;
 import java.util.Set;
 
 public class SpoilerNodeRenderer implements NodeRenderer {
 
-    private final HtmlNodeRendererContext context;
-    private final HtmlWriter writer;
+    private final CraftNodeRendererContext context;
+    private final CraftWriter writer;
 
-    SpoilerNodeRenderer(HtmlNodeRendererContext context) {
+    SpoilerNodeRenderer(CraftNodeRendererContext context) {
         this.context = context;
         writer = context.getWriter();
     }
@@ -26,15 +26,13 @@ public class SpoilerNodeRenderer implements NodeRenderer {
 
     @Override
     public void render(Node node) {
-        Map<String, String> attributes = context.extendAttributes(node, "sp", Collections.emptyMap());
-        writer.tag("sp", attributes);
-        // Render children
+        writer.format(ChatColor.MAGIC);
         Node child = node.getFirstChild();
         while (child != null) {
             Node next = child.getNext();
             context.render(child);
             child = next;
         }
-        writer.tag("/sp", attributes);
+        writer.format(ChatColor.RESET);
     }
 }

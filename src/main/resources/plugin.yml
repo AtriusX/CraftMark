@@ -1,4 +1,4 @@
-main: io.atrius.Main
+main: io.atrius.CraftMark
 name: CraftMark
 version: "1.0"
 description: Server chat manager with intuitive markdown support!

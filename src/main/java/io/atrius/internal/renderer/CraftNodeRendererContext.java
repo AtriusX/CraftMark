@@ -1,4 +1,4 @@
-package io.atrius.render;
+package io.atrius.internal.renderer;
 
 import org.commonmark.node.Node;
 

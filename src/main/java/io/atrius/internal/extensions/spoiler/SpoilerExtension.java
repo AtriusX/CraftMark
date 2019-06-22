@@ -1,9 +1,9 @@
-package io.atrius.render.extensions.spoiler;
+package io.atrius.internal.extensions.spoiler;
 
+import io.atrius.internal.renderer.CraftRenderer;
 import org.commonmark.parser.Parser;
-import org.commonmark.renderer.html.HtmlRenderer;
 
-public class SpoilerExtension implements Parser.ParserExtension, HtmlRenderer.HtmlRendererExtension {
+public class SpoilerExtension implements Parser.ParserExtension, CraftRenderer.CraftRendererExtension {
 
     private SpoilerExtension() {}
 
@@ -17,7 +17,7 @@ public class SpoilerExtension implements Parser.ParserExtension, HtmlRenderer.Ht
     }
 
     @Override
-    public void extend(HtmlRenderer.Builder rendererBuilder) {
+    public void extend(CraftRenderer.Builder rendererBuilder) {
         rendererBuilder.nodeRendererFactory(SpoilerNodeRenderer::new);
     }
 }

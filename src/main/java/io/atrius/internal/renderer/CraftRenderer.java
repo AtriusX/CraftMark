@@ -1,5 +1,6 @@
-package io.atrius.render;
+package io.atrius.internal.renderer;
 
+import org.commonmark.Extension;
 import org.commonmark.internal.renderer.NodeRendererMap;
 import org.commonmark.node.Node;
 import org.commonmark.renderer.NodeRenderer;
@@ -10,15 +11,18 @@ import java.util.List;
 
 public class CraftRenderer implements Renderer {
 
-    private List<CraftNodeRendererFactory> rendererFactories = new ArrayList<>();
+    private List<CraftNodeRendererFactory> rendererFactories;
 
-    private CraftRenderer() {
+    private CraftRenderer(Builder builder) {
+        this.rendererFactories = new ArrayList<>(builder.rendererFactories.size() + 1);
+        this.rendererFactories.addAll(builder.rendererFactories);
         rendererFactories.add(CraftNodeRenderer::new);
     }
 
-    public static CraftRenderer create() {
-        return new CraftRenderer();
+    public static Builder builder() {
+        return new Builder();
     }
+
 
     @Override
     public void render(Node node, Appendable output) {
@@ -30,7 +34,36 @@ public class CraftRenderer implements Renderer {
     public String render(Node node) {
         StringBuilder sb = new StringBuilder();
         render(node, sb);
+        // TODO color corrections
         return sb.toString();
+    }
+
+    public static class Builder {
+
+        private List<CraftNodeRendererFactory> rendererFactories = new ArrayList<>();
+
+        public CraftRenderer build() {
+            return new CraftRenderer(this);
+        }
+
+        public Builder extensions(Iterable<? extends Extension> extensions) {
+            for (Extension e : extensions) {
+                if (e instanceof CraftRendererExtension) {
+                    CraftRendererExtension extension = (CraftRendererExtension) e;
+                    extension.extend(this);
+                }
+            }
+            return this;
+        }
+
+        public Builder nodeRendererFactory(CraftNodeRendererFactory craftNodeRendererFactory) {
+            this.rendererFactories.add(craftNodeRendererFactory);
+            return this;
+        }
+    }
+
+    public interface CraftRendererExtension {
+        void extend(CraftRenderer.Builder builder);
     }
 
     private class RendererContext implements CraftNodeRendererContext {
@@ -61,7 +94,7 @@ public class CraftRenderer implements Renderer {
 }
 
 //    private HtmlRenderer renderer = HtmlRenderer.builder()
-//            .extensions(Main.getExtensions()).build();
+//            .extensions(CraftMark.getExtensions()).build();
 //
 //    @Override
 //    public void render(Node node, Appendable output) {}
