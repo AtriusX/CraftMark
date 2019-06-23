@@ -10,16 +10,10 @@ import java.util.Set;
 
 public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
 
-    private final CraftNodeRendererContext context;
     private final CraftWriter writer;
 
     public CraftNodeRenderer(CraftNodeRendererContext context) {
-        this.context = context;
         this.writer = context.getWriter();
-    }
-
-    public CraftWriter getWriter() {
-        return writer;
     }
 
     @Override
