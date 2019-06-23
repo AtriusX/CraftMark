@@ -10,9 +10,11 @@ import java.util.Set;
 
 public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
 
+    private CraftNodeRendererContext context;
     private final CraftWriter writer;
 
     public CraftNodeRenderer(CraftNodeRendererContext context) {
+        this.context = context;
         this.writer = context.getWriter();
     }
 
@@ -59,5 +61,17 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     @Override
     public void visit(Text text) {
         writer.write(text.getLiteral());
+    }
+
+    @Override
+    protected void visitChildren(Node parent) {
+        Node node = parent.getFirstChild();
+        while (node != null) {
+            // A subclass of this visitor might modify the node, resulting in getNext returning a different node or no
+            // node after visiting it. So get the next node before visiting.
+            Node next = node.getNext();
+            context.render(node);
+            node = next;
+        }
     }
 }
