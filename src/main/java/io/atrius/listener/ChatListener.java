@@ -13,7 +13,7 @@ import org.commonmark.parser.Parser;
 public class ChatListener implements Listener {
 
     private Parser        parser   = Parser.builder().extensions(CraftMark.getExtensions()).build();
-    private CraftRenderer renderer = CraftRenderer.builder().extensions(CraftMark.getExtensions()).build();
+    private CraftRenderer renderer = CraftRenderer.create();
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
