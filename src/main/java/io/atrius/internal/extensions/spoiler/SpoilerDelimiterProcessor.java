@@ -34,7 +34,7 @@ public class SpoilerDelimiterProcessor implements DelimiterProcessor {
         Node open = opener.getNext();
         while (open != null && open != closer) {
             Node next = open.getNext();
-            spoiler.appendChild(next);
+            spoiler.appendChild(open);
             open = next;
         }
 
