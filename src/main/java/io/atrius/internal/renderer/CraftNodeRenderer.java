@@ -1,6 +1,9 @@
 package io.atrius.internal.renderer;
 
+import io.atrius.internal.extensions.spoiler.Spoiler;
 import org.bukkit.ChatColor;
+import org.commonmark.ext.gfm.strikethrough.Strikethrough;
+import org.commonmark.ext.ins.Ins;
 import org.commonmark.node.*;
 import org.commonmark.renderer.NodeRenderer;
 
@@ -10,11 +13,9 @@ import java.util.Set;
 
 public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
 
-    private CraftNodeRendererContext context;
     private final CraftWriter writer;
 
     public CraftNodeRenderer(CraftNodeRendererContext context) {
-        this.context = context;
         this.writer = context.getWriter();
     }
 
@@ -25,6 +26,7 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
                 Paragraph.class,
                 Emphasis.class,
                 StrongEmphasis.class,
+                CustomNode.class,
                 Link.class
         ));
     }
@@ -32,6 +34,25 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     @Override
     public void render(Node node) {
         node.accept(this);
+    }
+
+    @Override
+    public void visit(CustomNode customNode) {
+        // Spoiler formatting
+        if (customNode instanceof Spoiler) {
+            writer.format(ChatColor.MAGIC);
+        }
+        // Underline formatting
+        if (customNode instanceof Ins) {
+            writer.format(ChatColor.UNDERLINE);
+        }
+        // Strikethrough formatting
+        if (customNode instanceof Strikethrough) {
+            writer.format(ChatColor.STRIKETHROUGH);
+        }
+
+        visitChildren(customNode);
+        writer.format(ChatColor.RESET);
     }
 
     @Override
@@ -59,19 +80,12 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     }
 
     @Override
-    public void visit(Text text) {
-        writer.write(text.getLiteral());
+    public void visit(Link link) {
+        super.visit(link);
     }
 
     @Override
-    protected void visitChildren(Node parent) {
-        Node node = parent.getFirstChild();
-        while (node != null) {
-            // A subclass of this visitor might modify the node, resulting in getNext returning a different node or no
-            // node after visiting it. So get the next node before visiting.
-            Node next = node.getNext();
-            context.render(node);
-            node = next;
-        }
+    public void visit(Text text) {
+        writer.write(text.getLiteral());
     }
 }
