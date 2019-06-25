@@ -27,13 +27,20 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
                 Emphasis.class,
                 StrongEmphasis.class,
                 CustomNode.class,
-                Link.class
+                Link.class,
+                Code.class
         ));
     }
 
     @Override
     public void render(Node node) {
         node.accept(this);
+    }
+
+    @Override
+    public void visit(Code code) {
+        visitChildren(code);
+        writer.write(code.getLiteral());
     }
 
     @Override

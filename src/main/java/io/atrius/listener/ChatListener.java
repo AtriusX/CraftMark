@@ -10,9 +10,15 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.commonmark.node.Node;
 import org.commonmark.parser.Parser;
 
+import java.util.Collections;
+
 public class ChatListener implements Listener {
 
-    private Parser        parser   = Parser.builder().extensions(CraftMark.getExtensions()).build();
+    private Parser parser = Parser.builder()
+            .enabledBlockTypes(Collections.emptySet()) // Disable all the unused node types
+            .extensions(CraftMark.getExtensions())
+            .build();
+
     private CraftRenderer renderer = CraftRenderer.create();
 
     @EventHandler(priority = EventPriority.HIGH)
