@@ -13,6 +13,7 @@ Formatting codes are supported via the following markdown operations:
 | Italic        | \*example*      | &o   |
 | Underline     | ++example++     | &m   |
 | Strikethrough | \~~example~~    | &n   |
+| Escape MD     | \`example`      | N/A  |
 
 #### Coming Soon
 
