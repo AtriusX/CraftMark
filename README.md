@@ -13,9 +13,16 @@ Formatting codes are supported via the following markdown operations:
 | Italic        | \*example*      | &o   |
 | Underline     | ++example++     | &m   |
 | Strikethrough | \~~example~~    | &n   |
-| Spoiler       | \|\|example\|\| | &k   |
 
-Later operations will support [links](#supported-operations); other options to be considered.
+#### Coming Soon
+
+| Name          | Operation       | Code |
+|---------------|-----------------|------|
+| Spoiler       | \|\|example\|\| | &k   |
+| Link          | [Example](#)    | N/A  |
+
+Later operations are to be considered. If you have any ideas you want supported, feel free to
+open an issue in the issue tracker.
 
 ## Contributing
 
