@@ -14,7 +14,6 @@ import java.util.Set;
 public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
 
     private final CraftWriter writer;
-
     public CraftNodeRenderer(CraftNodeRendererContext context) {
         this.writer = context.getWriter();
     }
@@ -59,7 +58,7 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
         }
 
         visitChildren(customNode);
-        writer.format(ChatColor.RESET);
+        writer.escape();
     }
 
     @Override
@@ -76,14 +75,14 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     public void visit(Emphasis emphasis) {
         writer.format(ChatColor.ITALIC);
         visitChildren(emphasis);
-        writer.format(ChatColor.RESET);
+        writer.escape();
     }
 
     @Override
     public void visit(StrongEmphasis strongEmphasis) {
         writer.format(ChatColor.BOLD);
         visitChildren(strongEmphasis);
-        writer.format(ChatColor.RESET);
+        writer.escape();
     }
 
     @Override
@@ -94,5 +93,6 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     @Override
     public void visit(Text text) {
         writer.write(text.getLiteral());
+        writer.escape();
     }
 }
