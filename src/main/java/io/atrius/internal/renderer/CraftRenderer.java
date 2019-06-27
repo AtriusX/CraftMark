@@ -63,29 +63,3 @@ public class CraftRenderer implements Renderer {
         }
     }
 }
-
-//    private HtmlRenderer renderer = HtmlRenderer.builder()
-//            .extensions(CraftMark.getExtensions()).build();
-//
-//    @Override
-//    public void render(Node node, Appendable output) {}
-//
-//    @Override
-//    public String render(Node node) {
-//        // TODO Handle chat colors
-//        String render = renderer.render(node);
-//        // Define the color matcher
-//        Pattern pat = Pattern.compile("&[0-9a-fA-f]");
-//        Matcher mat = pat.matcher(render);
-//        String currentColor;
-//        // Replace all closing tags with a reset and current color tag
-//        while (mat.find()) {
-//            currentColor = mat.group();
-//            render = render.replaceAll("</(strong|em|ins|del|sp)>", "&r" + currentColor);
-//        }
-//
-//        return render
-//                .replace("<strong>", "&l").replace("<em>", "&o")
-//                .replace("<ins>", "&n").replace("<del>", "&m")
-//                .replace("<sp>", "&k").replaceAll("</?p>", "");
-//    }
