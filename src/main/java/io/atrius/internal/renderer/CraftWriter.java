@@ -26,15 +26,11 @@ public class CraftWriter {
     }
 
     public void includeFormat(ChatColor color) {
-        if (isFormat(color)) {
-            currentNodes.add(color.toString());
-        }
+        if (isFormat(color)) currentNodes.add(color.toString());
     }
 
     public void removeFormat(ChatColor color) {
-        if (isFormat(color)) {
-            currentNodes.remove(color.toString());
-        }
+        if (isFormat(color)) currentNodes.remove(color.toString());
     }
 
     public void escape() {
