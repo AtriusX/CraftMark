@@ -44,20 +44,21 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
 
     @Override
     public void visit(CustomNode customNode) {
+        ChatColor code = ChatColor.RESET;
         // Spoiler formatting
         if (customNode instanceof Spoiler) {
-            writer.format(ChatColor.MAGIC);
+            writer.format(code = ChatColor.MAGIC);
         }
         // Underline formatting
         if (customNode instanceof Ins) {
-            writer.format(ChatColor.UNDERLINE);
+            writer.format(code = ChatColor.UNDERLINE);
         }
         // Strikethrough formatting
         if (customNode instanceof Strikethrough) {
-            writer.format(ChatColor.STRIKETHROUGH);
+            writer.format(code = ChatColor.STRIKETHROUGH);
         }
 
-        visitChildren(customNode);
+        formatChildren(customNode, code);
         writer.escape();
     }
 
@@ -74,14 +75,14 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     @Override
     public void visit(Emphasis emphasis) {
         writer.format(ChatColor.ITALIC);
-        visitChildren(emphasis);
+        formatChildren(emphasis, ChatColor.ITALIC);
         writer.escape();
     }
 
     @Override
     public void visit(StrongEmphasis strongEmphasis) {
         writer.format(ChatColor.BOLD);
-        visitChildren(strongEmphasis);
+        formatChildren(strongEmphasis, ChatColor.BOLD);
         writer.escape();
     }
 
@@ -94,5 +95,11 @@ public class CraftNodeRenderer extends AbstractVisitor implements NodeRenderer {
     public void visit(Text text) {
         writer.write(text.getLiteral());
         writer.escape();
+    }
+
+    private void formatChildren(Node node, ChatColor includeFormat) {
+        writer.includeFormat(includeFormat);
+        visitChildren(node);
+        writer.removeFormat(includeFormat);
     }
 }
