@@ -12,6 +12,9 @@ import org.commonmark.parser.Parser;
 
 import java.util.Collections;
 
+/**
+ * Handles chat interactions for the server.
+ */
 public class ChatListener implements Listener {
 
     private Parser parser = Parser.builder()
@@ -21,6 +24,9 @@ public class ChatListener implements Listener {
 
     private CraftRenderer renderer = CraftRenderer.create();
 
+    /**
+     * Renders each message out into the appropriate formats.
+     */
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         // Parse the input into a valid Minecraft chat message
