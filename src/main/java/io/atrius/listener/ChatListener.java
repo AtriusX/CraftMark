@@ -1,8 +1,10 @@
 package io.atrius.listener;
 
 import io.atrius.CraftMark;
+import io.atrius.Perms;
 import io.atrius.internal.renderer.CraftRenderer;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -30,10 +32,17 @@ public class ChatListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         // Parse the input into a valid Minecraft chat message
-        Node   document = parser.parse(event.getMessage());
+        String message;
+        Player player = event.getPlayer();
+        if (player.hasPermission(Perms.ALLOW_MARKDOWN)) {
+            Node document = parser.parse(event.getMessage());
+            message = renderer.render(document);
+        } else {
+            message = event.getMessage();
+        }
         // Replace message
-        event.setMessage(
-                ChatColor.translateAlternateColorCodes('&', renderer.render(document))
+        event.setMessage(player.hasPermission(Perms.TRANSLATE_FORMAT_CODES) ?
+                ChatColor.translateAlternateColorCodes('&', message) : message
         );
     }
 }
