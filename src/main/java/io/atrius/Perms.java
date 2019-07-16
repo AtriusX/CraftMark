@@ -8,8 +8,8 @@ import java.util.List;
  */
 public class Perms {
     private static final String PLUGIN_NAME            = "craftmark";
-    public  static final String TRANSLATE_FORMAT_CODES = createPermission("translateformatcodes");
-    public  static final String ALLOW_MARKDOWN         = createPermission("allowmarkdown");
+    public  static final String TRANSLATE_FORMAT_CODES = PLUGIN_NAME + "translateformatcodes";
+    public  static final String ALLOW_MARKDOWN         = PLUGIN_NAME + "allowmarkdown";
 
     /**
      * Creates a permission node from the given text nodes.
